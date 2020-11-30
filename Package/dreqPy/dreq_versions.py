@@ -2,12 +2,18 @@
 
 import urllib.request
 import zipfile
+import yaml
 
 url = 'https://zenodo.org/record/4292261/files/cmip6dr/CMIP6-Data-Request-XML-v01.00.11.zip?download=1'
 url = 'https://zenodo.org/record/4292247/files/cmip6dr/CMIP6-Data-Request-XML-v01.00.10.zip?download=1'
 save_path = 'CMIP6-Data-Request-XML-v01.00.10.zip'
 
 import requests
+
+class Versions(object):
+    def __init__(self):
+        self.ee = yaml.load( open( 'Documents/version_history.yaml', 'r' ) )
+        print (sorted( list( self.ee.keys() ) ) )
 
 def download_url(url, save_path, chunk_size=128):
     r = urllib.request.urlopen(url)
@@ -30,3 +36,4 @@ def catz(zfile):
 
 catz(save_path)
 
+v = Versions()

@@ -1,7 +1,12 @@
+TEMPLATES:
+        doi: 10.5281/zenodo.%(zenodo_id)s
+        zipurl: https://zenodo.org/record/%(zenodo_id)s/files/cmip6dr/CMIP6-Data-Request-XML-v%(version)s.zip?download=1
+
+ALL:
+        zenodo_id: 4292246
 
 01.00.10:
-        zipurl: https://zenodo.org/record/4292261/files/cmip6dr/CMIP6-Data-Request-XML-v01.00.11.zip?download=1
-        doi:
-        zenodo_id: 4292261
+        zenodo_id: 4292247
 
-url = 'https://zenodo.org/record/4292247/files/cmip6dr/CMIP6-Data-Request-XML-v01.00.10.zip?download=1'
+01.00.11:
+        zenodo_id: 4292261
