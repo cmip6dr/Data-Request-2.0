@@ -81,10 +81,12 @@ mr = {
     "title": ""
 }
 
-sys.exit(0)
+bucket_url = r.json()['links']['bucket']
+deposition_id = r.json()['id']
+##sys.exit(0)
 # New API
-filename = "my-file.zip"
-path = "/path/to/%s" % filename
+filename = "z.py"
+path = "./%s" % filename
 
 # The target URL is a combination of the bucket link with the desired filename
 # seperated by a slash.
@@ -94,7 +96,8 @@ with open(path, "rb") as fp:
         data=fp,
         params=params,
     )
-r.json()
+print( r.json() )
+
 
 mr = {
   "key": "my-file.zip",
@@ -109,11 +112,12 @@ mr = {
     "version": "https://zenodo.org/api/files/44cc40bc-50fd-4107-b347-00838c79f4c1/dummy_example.pdf?versionId=38a724d3-40f1-4b27-b236-ed2e43200f85",
     "uploads": "https://zenodo.org/api/files/44cc40bc-50fd-4107-b347-00838c79f4c1/dummy_example.pdf?uploads"
   },
-  "is_head": true,
+  "is_head": True,
   "delete_marker": False
 }
 
 
-r = requests.post('https://zenodo.org/api/deposit/depositions/%s/actions/publish' % deposition_id,
-                      params={'access_token': ACCESS_TOKEN} )
+r = requests.post('https://sandbox.zenodo.org/api/deposit/depositions/%s/actions/publish' % deposition_id,
+                      params={'access_token': SB_ACCESS_TOKEN} )
 r.status_code
+print (r.json())
