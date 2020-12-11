@@ -13,6 +13,17 @@ mr = { "message": """The server could not verify that you are authorized to acce
   "status": 401
 }
 
+creators_01 = [{'name':'Doe, John', 'affiliation': 'Zenodo'}, {'name':'Smith, Jane', 'affiliation': 'Zenodo', 'orcid': '0000-0002-1694-233X'}, {'name': 'Kowalski, Jack', 'affiliation': 'Zenodo', 'gnd': '170118215'}]
+creator = [dict( name='Juckes, Martin', affiliation='UKRI STFC', orcid='0000-0003-1770-2132' ),]
+
+required_param01 = dict( upload_type='dataset',   publication_date='2020-12-01',
+                title='A title', creators=creator,
+                description='Long text',
+                access_right='open',
+                license='cc-by' )
+
+
+
 
 ii = open( '/home/mjuckes/.local/.zenodo', 'r' )
 ACCESS_TOKEN = ii.readline().strip()
@@ -40,8 +51,18 @@ def ex01():
 
 headers = {"Content-Type": "application/json"}
 params = {'access_token': SB_ACCESS_TOKEN}
-r = requests.post('https://sandbox.zenodo.org/api/deposit/depositions',
-                   params=params,
+
+url_create = 'https://sandbox.zenodo.org/api/deposit/depositions'
+url_old='https://sandbox.zenodo.org/api/deposit/depositions/%s' % '710018'
+
+ro  = requests.get(url_old,params=params)
+print ( ro.json() )
+
+print( ro.json()["conceptrecid"] )
+
+params["conceptrecid"] = ro.json()["conceptrecid"]
+
+r = requests.post(url_create, params=params,
                    json={},
                    # Headers are not necessary here since "requests" automatically
                    # adds "Content-Type: application/json", because we're using
@@ -116,6 +137,7 @@ mr = {
   "delete_marker": False
 }
 
+sys.exit(0)
 
 r = requests.post('https://sandbox.zenodo.org/api/deposit/depositions/%s/actions/publish' % deposition_id,
                       params={'access_token': SB_ACCESS_TOKEN} )
